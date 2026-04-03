@@ -1,351 +1,50 @@
-{
- "cells": [
-  {
-   "cell_type": "markdown",
-   "id": "768d62a9-3ddb-4313-9f5c-83a0bcf79825",
-   "metadata": {},
-   "source": [
-    "### 리스트의 항목에 접근하기 슬라이싱(slicing)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 9,
-   "id": "1f129333-64f5-4221-b62e-965874cd50e7",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[1, 2, 3, 4, 5]\n",
-      "[1, 2, 3, 4, 5]\n",
-      "[2, 5, 8]\n",
-      "[1, 3, 5]\n",
-      "[1, 4, 7]\n",
-      "[1, 2, 3, 4, 5, 6, 7, 8]\n",
-      "[1, 2, 3, 4, 5, 6, 7, 8]\n",
-      "-\n",
-      "[8, 6, 4]\n",
-      "[2, 3, 4, 5, 6, 7]\n"
-     ]
-    }
-   ],
-   "source": [
-    "test_list = [1, 2, 3, 4, 5, 6, 7, 8]\n",
-    "\n",
-    "print(test_list[0:5])\n",
-    "print(test_list[:5])\n",
-    "\n",
-    "print(test_list[1::3])\n",
-    "print(test_list[:5:2])\n",
-    "print(test_list[::3])\n",
-    "print(test_list[:])\n",
-    "print(test_list[::])\n",
-    "print('-')\n",
-    "print(test_list[-1:-7:-2])\n",
-    "print(test_list[1:-1:])"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 4,
-   "id": "68e82429-87cb-4cef-899d-3d942d2385c5",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[3, 2, 1]\n"
-     ]
-    }
-   ],
-   "source": [
-    "print([1, 2, 3][::-1])"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 5,
-   "id": "813e4032-72a6-4877-a458-d5f326ab9a81",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[111, 222, 333, 3, 4, 5, 6, 7, 8]\n"
-     ]
-    }
-   ],
-   "source": [
-    "test_list = [1, 2, 3, 4, 5, 6, 7, 8]\n",
-    "test_list[:2] = [111, 222, 333]\n",
-    "print(test_list)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "69cf5a5c-813a-4e04-8755-54c3d0c0f040",
-   "metadata": {},
-   "source": [
-    "#### 리스트의 항목 재배열하기"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 18,
-   "id": "2d7cf2af-2ea7-4da1-87cb-80453f66356d",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "원본 ['one', 'two', 'three', 'four']\n",
-      "역순 후 ['four', 'three', 'two', 'one']\n",
-      "정렬 후 ['four', 'one', 'three', 'two']\n",
-      "원본 ['one', 'two', 'three', 'four']\n",
-      "정렬 후 ['four', 'one', 'three', 'two']\n",
-      "['one', 'two', 'four', 'three']\n"
-     ]
-    }
-   ],
-   "source": [
-    "a_list = ['one', 'two', 'three', 'four']\n",
-    "print ('원본', a_list)\n",
-    "a_list.reverse()\n",
-    "print('역순 후', a_list)\n",
-    "\n",
-    "a_list.sort()\n",
-    "print('정렬 후', a_list)\n",
-    "\n",
-    "a_list = ['one', 'two', 'three', 'four']\n",
-    "b_list = sorted(a_list)\n",
-    "print('원본', a_list)\n",
-    "print('정렬 후', b_list)\n",
-    "\n",
-    "c_list = sorted(a_list, key=len)\n",
-    "print(c_list)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 17,
-   "id": "5a415fd9-5080-4819-9675-85f2386f70a7",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[95, 74, 55, 45, 21]\n",
-      "[95, 45, 21, 74, 55]\n",
-      "[95, 74, 55, 45, 21]\n"
-     ]
-    }
-   ],
-   "source": [
-    "scores = [95, 45, 21, 74, 55]\n",
-    "print(sorted(scores, reverse=True))\n",
-    "\n",
-    "print(scores)\n",
-    "scores.sort(reverse=True)\n",
-    "print(scores)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "c301cff2-c37d-4684-9212-2bbfc870751c",
-   "metadata": {},
-   "source": [
-    "#### 리스트에 항목 추가하기"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 20,
-   "id": "9c524cce-816f-44dd-868d-0f565a38b158",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdin",
-     "output_type": "stream",
-     "text": [
-      "숫자:  5\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[1, 2, 3, 4, 5]\n"
-     ]
-    }
-   ],
-   "source": [
-    "# 1~N의 수로 이루어진 리스트 생성\n",
-    "N = int(input(\"숫자: \"))\n",
-    "num_list = []\n",
-    "for i in range(1,N+1):\n",
-    "      num_list.append(i)\n",
-    "print(num_list)"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 22,
-   "id": "a883cc4e-1723-4301-814f-bf7aefc8645a",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdin",
-     "output_type": "stream",
-     "text": [
-      "숫자:  5\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[1, 2, 3, 4, 5]\n",
-      "[2, 4, 6, 8, 10]\n"
-     ]
-    },
-    {
-     "name": "stdin",
-     "output_type": "stream",
-     "text": [
-      "숫자 : 10\n"
-     ]
-    },
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "[2, 4, 6, 8, 10]\n"
-     ]
-    }
-   ],
-   "source": [
-    "# 1~N의 수로 이루어진 리스트 생성\n",
-    "N = int(input(\"숫자: \"))\n",
-    "num_list = [i for i in range(1,N+1)]\n",
-    "print(num_list)\n",
-    "\n",
-    "# expression\n",
-    "num_list = [i * 2 for i in range(1,N+1)]\n",
-    "print(num_list)\n",
-    "\n",
-    "# if문 사용\n",
-    "N = int(input(\"숫자 :\"))\n",
-    "num_list = [i for i in range(1,N+1) if i % 2 == 0]\n",
-    "print(num_list)"
-   ]
-  },
-  {
-   "cell_type": "markdown",
-   "id": "d2382f51-ad2e-44b2-a954-a4f2145d6008",
-   "metadata": {},
-   "source": [
-    "#### 리스트와 반복구조 연습"
-   ]
-  },
-  {
-   "cell_type": "code",
-   "execution_count": 28,
-   "id": "09d2b73f-8410-4756-b60c-c300d3dbf618",
-   "metadata": {},
-   "outputs": [
-    {
-     "name": "stdout",
-     "output_type": "stream",
-     "text": [
-      "4\n",
-      "78\n",
-      "11\n",
-      "3\n",
-      "274\n",
-      "[78, 65, 25, 11, 27, 45, 23]\n",
-      "[23, 45, 27, 11, 25, 65, 78]\n"
-     ]
-    }
-   ],
-   "source": [
-    "number_list = [23, 45, 27, 11, 25, 65, 78]\n",
-    "\n",
-    "def getIndex(A, B):\n",
-    "    index = 0\n",
-    "    while index < len(A):\n",
-    "        if A[index] == B:\n",
-    "            break\n",
-    "        index += 1\n",
-    "    return index\n",
-    "\n",
-    "def getMax(A):\n",
-    "    max_val = A[0]\n",
-    "    for B in A:\n",
-    "        if B > max_val:\n",
-    "            max_val = B\n",
-    "    return max_val\n",
-    "\n",
-    "def getMin(A):\n",
-    "    min_val = A[0]\n",
-    "    for B in A:\n",
-    "        if B < min_val:\n",
-    "            min_val = B\n",
-    "    return min_val\n",
-    "\n",
-    "def countGT(A, B):\n",
-    "    C = 0\n",
-    "    for D in A:\n",
-    "        if D > B:\n",
-    "            C += 1\n",
-    "    return C\n",
-    "\n",
-    "def sumList(A):\n",
-    "    B = 0\n",
-    "    for C in A:\n",
-    "        B += C\n",
-    "    return B\n",
-    "\n",
-    "def swapList(A):\n",
-    "    B = []\n",
-    "    for C in A:\n",
-    "        B.insert(0, C)\n",
-    "    return B\n",
-    "\n",
-    "print(getIndex(number_list, 25))\n",
-    "print(getMax(number_list))\n",
-    "print(getMin(number_list))\n",
-    "print(countGT(number_list, 42))\n",
-    "print(sumList(number_list))\n",
-    "print(swapList(number_list))\n",
-    "print(number_list)"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python [conda env:base] *",
-   "language": "python",
-   "name": "conda-base-py"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.13.9"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+number_list = [23, 45, 27, 11, 25, 65, 78]
+
+def getIndex(A, B):
+    index = 0
+    while index < len(A):
+        if A[index] == B:
+            break
+        index += 1
+    return index
+
+def getMax(A):
+    max_val = A[0]
+    for B in A:
+        if B > max_val:
+            max_val = B
+    return max_val
+
+def getMin(A):
+    min_val = A[0]
+    for B in A:
+        if B < min_val:
+            min_val = B
+    return min_val
+
+def countGT(A, B):
+    C = 0
+    for D in A:
+        if D > B:
+            C += 1
+    return C
+
+def sumList(A):
+    B = 0
+    for C in A:
+        B += C
+    return B
+
+def swapList(A):
+    B = []
+    for C in A:
+        B.insert(0, C)
+    return B
+
+print(getIndex(number_list, 25))
+print(getMax(number_list))
+print(getMin(number_list))
+print(countGT(number_list, 42))
+print(sumList(number_list))
+print(swapList(number_list))
+print(number_list)
