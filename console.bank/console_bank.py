@@ -47,22 +47,29 @@ class ConsoleBank:
         print(f'0. {menu_list[0]}')
         print('==================================================')
         print()
+
         # 메뉴 입력 받기
         try:
             menu = int(input('>>메뉴 선택 : '))
             print()
-        # 예외처리 (없는 메뉴 선택 에러)
-            if not (0 <= menu <= len(menu_list)-1):
-                raise Exception('ERROR : 잘못된 입력입니다')
+            if not (0 <= menu <= len(menu_list) - 1):
+                raise ValueError
             return menu
-        except Exception as e:
-            print(e)
-            return -1
-        # 예외처리 (문자입력 에러)
         except ValueError:
-            print()
             print('ERROR : 잘못된 입력입니다')
             return -1
+
+    def input_amount(self, message):
+        # 금액 입력 전용 함수
+        try:
+            amount = int(input(message))
+            if amount <= 0:
+                print('ERROR : 금액은 1원 이상 입력해야 합니다')
+                return None
+            return amount
+        except ValueError:
+            print('ERROR : 금액은 숫자로 입력해야 합니다')
+            return None
 
 
     def run_start_menu(self):
@@ -143,9 +150,12 @@ class ConsoleBank:
 
     # 입금
     def menu_deposit(self):
-        account_no = (input(f'입금 계좌번호: '))
-        amount = int(input(f'입금 금액: '))
+        account_no = input('입금 계좌번호: ')
+        amount = self.input_amount('입금 금액: ')
         print()
+        if amount is None:
+            return
+
         deposit_result = self.asv.deposit(account_no, amount)
         if deposit_result == True:
             print('입금되었습니다')
@@ -155,10 +165,13 @@ class ConsoleBank:
 
     # 출금
     def menu_withdraw(self):
-        account_no = (input(f'출금 계좌번호: '))
-        pw = input(f'비밀번호: ')
-        amount = int(input(f'출금 금액: '))
+        account_no = input('출금 계좌번호: ')
+        pw = input('비밀번호: ')
+        amount = self.input_amount('출금 금액: ')
         print()
+        if amount is None:
+            return
+
         try:
             withdraw_result = self.asv.withdraw(self.msv.current_user, account_no, amount, pw)
             if withdraw_result == True:
@@ -167,7 +180,7 @@ class ConsoleBank:
             else:
                 print('ERROR : 잘못된 계좌번호입니다')
         except KeyError:
-            print ('ERROR : 비밀번호가 일치하지 않습니다.')
+            print('ERROR : 비밀번호가 일치하지 않습니다.')
         except ValueError:
             print('ERROR : 계좌 잔액이 부족합니다.')
 
@@ -184,10 +197,15 @@ class ConsoleBank:
 
     # 계좌해지
     def menu_delete_account(self):
-        id = input(f'아이디: ')
-        pw = input(f'비밀번호: ')
-        account_no = input(f'삭제할 계좌번호: ')
+        id = input('아이디: ')
+        pw = input('비밀번호: ')
+        account_no = input('삭제할 계좌번호: ')
+        confirm = input('정말 계좌를 삭제하시겠습니까? (Y/N): ')
         print()
+        if confirm.upper() != 'Y':
+            print('계좌해지가 취소되었습니다')
+            return
+
         try:
             delete_account_result = self.asv.delete_account(id, account_no, pw)
             if delete_account_result == True:
@@ -195,7 +213,7 @@ class ConsoleBank:
             else:
                 print('ERROR : 잘못된 계좌번호입니다')
         except KeyError:
-            print ('ERROR : 아이디나 비밀번호가 일치하지 않습니다.')
+            print('ERROR : 아이디나 비밀번호가 일치하지 않습니다.')
 
     # 내 정보
     def menu_myinfo(self):
@@ -242,11 +260,27 @@ class ConsoleBank:
 
     # 회원탈퇴
     def menu_delete_membership(self):
-        id = input(f'아이디: ')
+        id = input('아이디: ')
+        pw = input('비밀번호: ')
+        confirm = input('정말 회원탈퇴 하시겠습니까? (Y/N): ')
         print()
+
+        if confirm.upper() != 'Y':
+            print('회원탈퇴가 취소되었습니다')
+            return
+
+        if id != self.msv.current_user:
+            print('ERROR : 현재 로그인한 아이디와 일치하지 않습니다.')
+            return
+
+        if not self.msv.login(id, pw):
+            print('ERROR : 아이디나 비밀번호가 일치하지 않습니다.')
+            return
+
         delete_member = self.msv.remove_member(id)
         if delete_member == True:
             print('계정이 삭제되었습니다')
+            self.msv.logout()
         else:
             print('ERROR : 아이디가 일치하지 않습니다.')
 
